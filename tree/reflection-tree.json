@@ -1,0 +1,214 @@
+{
+  "nodes": [
+    {
+      "id": "START",
+      "type": "start",
+      "text": "Good evening. Take a deep breath. Let's look back at your day."
+    },
+    {
+      "id": "A1_OPEN",
+      "type": "question",
+      "text": "When you replay the most critical moment of your day, where was the primary friction?",
+      "options": [
+        {"text": "The expectations placed on me were unclear or unrealistic.", "value": "A"},
+        {"text": "I realized I hadn't prepared enough for the reality of the situation.", "value": "B"},
+        {"text": "Other people's delays or mistakes forced me to scramble.", "value": "C"},
+        {"text": "I made a strategic error in how I approached it.", "value": "D"}
+      ]
+    },
+    {
+      "id": "A1_D1",
+      "type": "decision",
+      "rules": [
+        {"condition": "answer == 'B' || answer == 'D'", "target": "A1_Q_INT", "signal": "axis1:internal"},
+        {"condition": "answer == 'A' || answer == 'C'", "target": "A1_Q_EXT", "signal": "axis1:external"}
+      ]
+    },
+    {
+      "id": "A1_Q_INT",
+      "type": "question",
+      "text": "You're taking ownership of the friction. In the moment you realized the gap in your preparation or strategy, what did you do?",
+      "options": [
+        {"text": "I paused, recalibrated, and changed my approach.", "value": "A", "signal": "axis1:internal"},
+        {"text": "I pushed through using brute force, hoping it would work out.", "value": "B", "signal": "axis1:external"},
+        {"text": "I asked for specific feedback or help to bridge the gap.", "value": "C", "signal": "axis1:internal"},
+        {"text": "I felt overwhelmed but kept it to myself.", "value": "D", "signal": "axis1:external"}
+      ]
+    },
+    {
+      "id": "A1_Q_EXT",
+      "type": "question",
+      "text": "It's exhausting when friction comes from the environment. When you hit that wall, how did you try to move forward?",
+      "options": [
+        {"text": "I waited for someone to clarify or unblock me.", "value": "A", "signal": "axis1:external"},
+        {"text": "I focused strictly on what I could control in my immediate radius.", "value": "B", "signal": "axis1:internal"},
+        {"text": "I voiced my frustration so people knew what I was dealing with.", "value": "C", "signal": "axis1:external"},
+        {"text": "I negotiated a new boundary or deadline to protect the work.", "value": "D", "signal": "axis1:internal"}
+      ]
+    },
+    {
+      "id": "A1_D2",
+      "type": "decision",
+      "rules": [
+        {"condition": "signals.axis1.internal >= signals.axis1.external", "target": "A1_R_INT"},
+        {"condition": "signals.axis1.external > signals.axis1.internal", "target": "A1_R_EXT"}
+      ]
+    },
+    {
+      "id": "A1_R_INT",
+      "type": "reflection",
+      "text": "It sounds like you held onto your agency today. Even when things went off-script, you looked for the levers you could actually pull."
+    },
+    {
+      "id": "A1_R_EXT",
+      "type": "reflection",
+      "text": "It’s completely normal to feel stuck when external forces derail you. But noticing your reaction to that chaos is the first step to reclaiming control."
+    },
+    {
+      "id": "BRIDGE_1_2",
+      "type": "bridge",
+      "text": "We've looked at how you handled friction. Now let's look at how you interacted with the people around you.",
+      "target": "A2_OPEN"
+    },
+    {
+      "id": "A2_OPEN",
+      "type": "question",
+      "text": "Think about a moment today where you felt out of sync with a colleague. What was the underlying feeling?",
+      "options": [
+        {"text": "I felt they should have recognized how much effort I was putting in.", "value": "A"},
+        {"text": "I wondered if I had communicated my needs clearly enough.", "value": "B"},
+        {"text": "I felt annoyed that I was carrying more than my fair share.", "value": "C"},
+        {"text": "I wanted to understand what was blocking them from engaging.", "value": "D"}
+      ]
+    },
+    {
+      "id": "A2_D1",
+      "type": "decision",
+      "rules": [
+        {"condition": "answer == 'B' || answer == 'D'", "target": "A2_Q_CONTRIB", "signal": "axis2:contribution"},
+        {"condition": "answer == 'A' || answer == 'C'", "target": "A2_Q_ENTITLE", "signal": "axis2:entitlement"}
+      ]
+    },
+    {
+      "id": "A2_Q_CONTRIB",
+      "type": "question",
+      "text": "You approached the disconnect with curiosity. What did that cost you in the moment?",
+      "options": [
+        {"text": "It took extra emotional labor when I was already tired.", "value": "A", "signal": "axis2:contribution"},
+        {"text": "It meant I had to slow down my own work to bring them along.", "value": "B", "signal": "axis2:contribution"},
+        {"text": "Honestly, I felt resentful even while trying to be helpful.", "value": "C", "signal": "axis2:entitlement"},
+        {"text": "Nothing—it felt like the most efficient way to solve the problem.", "value": "D", "signal": "axis2:contribution"}
+      ]
+    },
+    {
+      "id": "A2_Q_ENTITLE",
+      "type": "question",
+      "text": "It’s natural to want fairness and recognition. When you felt that imbalance, what was your default assumption?",
+      "options": [
+        {"text": "That they don't value my time or standards as much as I do.", "value": "A", "signal": "axis2:entitlement"},
+        {"text": "That I need to stop doing extra work if it's not appreciated.", "value": "B", "signal": "axis2:entitlement"},
+        {"text": "That maybe they are dealing with invisible pressures I don't see.", "value": "C", "signal": "axis2:contribution"},
+        {"text": "That the system or management is failing to hold people accountable.", "value": "D", "signal": "axis2:entitlement"}
+      ]
+    },
+    {
+      "id": "A2_D2",
+      "type": "decision",
+      "rules": [
+        {"condition": "signals.axis2.contribution >= signals.axis2.entitlement", "target": "A2_R_CONTRIB"},
+        {"condition": "signals.axis2.entitlement > signals.axis2.contribution", "target": "A2_R_ENTITLE"}
+      ]
+    },
+    {
+      "id": "A2_R_CONTRIB",
+      "type": "reflection",
+      "text": "You showed up with a mindset of giving today. That discretionary effort is the invisible glue that holds teams together."
+    },
+    {
+      "id": "A2_R_ENTITLE",
+      "type": "reflection",
+      "text": "When we focus heavily on what we are owed, every interaction becomes a transaction. Shifting focus to what you can give often reduces that internal friction."
+    },
+    {
+      "id": "BRIDGE_2_3",
+      "type": "bridge",
+      "text": "You've reflected on your agency and your orientation toward others. Finally, let's zoom out to your radius of concern.",
+      "target": "A3_OPEN"
+    },
+    {
+      "id": "A3_OPEN",
+      "type": "question",
+      "text": "When the stress peaked today, how wide was your lens?",
+      "options": [
+        {"text": "I was entirely focused on surviving my own task list.", "value": "A"},
+        {"text": "I was worried about how my performance would be perceived.", "value": "B"},
+        {"text": "I was thinking about how our team's bottleneck affects the next department.", "value": "C"},
+        {"text": "I was focused on making sure the client didn't feel our internal chaos.", "value": "D"}
+      ]
+    },
+    {
+      "id": "A3_D1",
+      "type": "decision",
+      "rules": [
+        {"condition": "answer == 'A' || answer == 'B'", "target": "A3_Q_SELF", "signal": "axis3:self"},
+        {"condition": "answer == 'C' || answer == 'D'", "target": "A3_Q_ALTRO", "signal": "axis3:altro"}
+      ]
+    },
+    {
+      "id": "A3_Q_SELF",
+      "type": "question",
+      "text": "When we are overwhelmed, our radius naturally shrinks to protect ourselves. If you had possessed 10% more capacity today, where would you have directed it?",
+      "options": [
+        {"text": "To finally catch up and give myself some breathing room.", "value": "A", "signal": "axis3:self"},
+        {"text": "To proactively check in on a teammate who was also struggling.", "value": "B", "signal": "axis3:altro"},
+        {"text": "To plan ahead so tomorrow wouldn't feel so chaotic.", "value": "C", "signal": "axis3:self"},
+        {"text": "To fix a broken process that affects everyone.", "value": "D", "signal": "axis3:altro"}
+      ]
+    },
+    {
+      "id": "A3_Q_ALTRO",
+      "type": "question",
+      "text": "Holding a wide radius is powerful but heavy. How did holding that broader perspective affect you?",
+      "options": [
+        {"text": "It gave the stress meaning—I knew *why* the work mattered.", "value": "A", "signal": "axis3:altro"},
+        {"text": "It actually amplified my anxiety because I felt responsible for everything.", "value": "B", "signal": "axis3:self"},
+        {"text": "It helped me separate what was actually urgent from what was just noise.", "value": "C", "signal": "axis3:altro"},
+        {"text": "It made me ignore my own boundaries until I was depleted.", "value": "D", "signal": "axis3:self"}
+      ]
+    },
+    {
+      "id": "A3_D2",
+      "type": "decision",
+      "rules": [
+        {"condition": "signals.axis3.altro >= signals.axis3.self", "target": "A3_R_ALTRO"},
+        {"condition": "signals.axis3.self > signals.axis3.altro", "target": "A3_R_SELF"}
+      ]
+    },
+    {
+      "id": "A3_R_SELF",
+      "type": "reflection",
+      "text": "Stress inevitably narrows our focus. But remember: expanding your view to see how you fit into the larger system can sometimes lighten the load."
+    },
+    {
+      "id": "A3_R_ALTRO",
+      "type": "reflection",
+      "text": "You managed to keep the bigger picture in view. That broader perspective—self-transcendence—is a hallmark of resilience."
+    },
+    {
+      "id": "SUMMARY_BRIDGE",
+      "type": "bridge",
+      "text": "Thank you for engaging deeply. Let's summarize where you are today.",
+      "target": "SUMMARY"
+    },
+    {
+      "id": "SUMMARY",
+      "type": "summary",
+      "text": "Today's snapshot: You leaned towards an {axis1_dom} locus of control, a mindset of {axis2_dom}, and a {axis3_dom} radius of concern. These aren't permanent traits—they're choices you get to make again tomorrow."
+    },
+    {
+      "id": "END",
+      "type": "end",
+      "text": "Rest well. See you tomorrow."
+    }
+  ]
+}
